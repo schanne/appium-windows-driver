@@ -8,7 +8,7 @@ import { withMocks } from 'appium-test-support';
 chai.should();
 chai.use(chaiAsPromised);
 
-function buildWinAppDriverOpts() {
+function buildWinAppDriverOpts () {
   return {
     app: 'foo',
     host: 'localhost',
@@ -25,12 +25,6 @@ describe('WinAppDriverServer', () => {
       (() => {
         new WinAppDriverServer({});
       }).should.throw(/Option.*app.*required/);
-      (() => {
-        new WinAppDriverServer({ app: 'foo' });
-      }).should.throw(/Option.*host.*required/);
-      (() => {
-        new WinAppDriverServer({ app: 'foo', host: 'bar' });
-      }).should.throw(/Option.*port.*required/);
     });
   });
 

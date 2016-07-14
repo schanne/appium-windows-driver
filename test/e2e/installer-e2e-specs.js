@@ -1,3 +1,5 @@
+/* eslint-disable no-console */
+
 import { setupWAD, WAD_GUID } from '../../lib/installer';
 import { exec } from 'teen_process';
 import chai from 'chai';
