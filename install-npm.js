@@ -2,7 +2,8 @@
 /* eslint-disable no-console */
 
 var fs = require('fs')
-  , path = require('path');
+  , path = require('path')
+  , system = require('appium-support').system;
 
 
 function waitForDeps (cb) {
@@ -31,6 +32,10 @@ function waitForDeps (cb) {
 }
 
 if (require.main === module) {
+  if (!system.isWindows()) {
+    console.warn("Not installing WinAppDriver since did not detect a Windows system");
+    process.exit(0);
+  }
   // check if cur dir exists
   var installScript = path.resolve(__dirname, 'build', 'lib', 'installer.js');
   waitForDeps(function (err) {
