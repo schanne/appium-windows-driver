@@ -18,7 +18,7 @@ function buildWinAppDriverOpts () {
 
 describe('WinAppDriverServer', () => {
   describe('#constructor', () => {
-    it('should complain if required options not sent foo', () => {
+    it('should complain if required options not sent', () => {
       (() => {
         new WinAppDriverServer();
       }).should.throw(/Option.*app.*required/);
