@@ -8,8 +8,15 @@ chai.should();
 chai.use(chaiAsPromised);
 
 describe('downloading WAD', function () {
+  let isWindowsStub;
+  before(function () {
+    isWindowsStub = sinon.stub(system, "isWindows").returns(false);
+  });
+  after(function () {
+    isWindowsStub.restore();
+  });
+
   it('should throw an error if we are not on windows', async function () {
-    sinon.stub(system, "isWindows", () => { return false; });
     await setupWAD().should.be.rejectedWith(/Windows/);
   });
 });
