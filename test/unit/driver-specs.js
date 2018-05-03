@@ -4,11 +4,22 @@ import WindowsDriver from '../..';
 import chai from 'chai';
 import chaiAsPromised from 'chai-as-promised';
 import sinon from 'sinon';
+import B from 'bluebird';
+import { system } from 'appium-support';
+
 
 chai.should();
 chai.use(chaiAsPromised);
 
 describe('driver.js', function () {
+  let isWindowsStub;
+  before(function () {
+    isWindowsStub = sinon.stub(system, "isWindows").returns(true);
+  });
+  after(function () {
+    isWindowsStub.restore();
+  });
+
   describe('constructor', function () {
     it('calls BaseDriver constructor with opts', function () {
       let driver = new WindowsDriver({ foo: 'bar' });
@@ -21,8 +32,8 @@ describe('driver.js', function () {
     it('should set sessionId', async function () {
       let driver = new WindowsDriver({ app: 'myapp'}, false);
       sinon.mock(driver).expects('startWinAppDriverSession')
-          .once()
-          .returns(Promise.resolve());
+        .once()
+        .returns(B.resolve());
       await driver.createSession({ cap: 'foo' });
       driver.sessionId.should.exist;
       driver.caps.cap.should.equal('foo');
@@ -58,7 +69,7 @@ describe('driver.js', function () {
       });
     });
 
-    // TODO: Implement or delete  
+    // TODO: Implement or delete
     //describe('#getProxyAvoidList', function () {
     //  it('should exist', function () {
     //    driver.getProxyAvoidList.should.be.an.instanceof(Function);
