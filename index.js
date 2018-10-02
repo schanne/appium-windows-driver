@@ -4,8 +4,12 @@
 import yargs from 'yargs';
 import { asyncify } from 'asyncbox';
 import { startServer } from './lib/server';
-import { WindowsDriver } from './lib/driver';
-import { commonCapConstraints } from './lib/desired-caps';
+import * as driver from './lib/driver';
+import * as caps from './lib/desired-caps';
+
+
+const { WindowsDriver } = driver;
+const { desiredCapConstraints: commonCapConstraints } = caps;
 
 const DEFAULT_HOST = "localhost";
 const DEFAULT_PORT = 4723;
