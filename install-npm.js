@@ -39,17 +39,17 @@ if (require.main === module) {
   }
   // check if cur dir exists
   const installScript = path.resolve(__dirname, 'build', 'lib', 'installer.js');
-  waitForDeps(function (err) {
+  waitForDeps(function checkInstallScript (err) {
     if (err) {
       console.warn('Unable to import install script. Re-run `install appium-windows-driver` manually.');
       return;
     }
-    fs.stat(installScript, function (err) {
+    fs.stat(installScript, function attemptInstall (err) {
       if (err) {
         console.warn("NOTE: Run 'gulp transpile' before using");
         return;
       }
-      require('./build/lib/installer').setupWAD().catch(function (err) {
+      require('./build/lib/installer').setupWAD().catch(function onError (err) {
         console.error(err.message);
         console.error('WinAppDriver was not installed; please check your ' +
                       'system and re-run npm install if you need WinAppDriver');
